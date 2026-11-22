@@ -134,6 +134,25 @@ f9-metaso --selftest
 
 命令装在别处、不在 `~/.local/bin` 时，用环境变量把位置告诉插件：`DSH_VOICE_FREE_DOUBAO_BIN`、`DSH_VOICE_FREE_METASO_BIN`，写完重启 `dsh web`。秘塔登录过期就回 f9-voice-input 目录重跑 `python3 login.py`；豆包身份坏了跑 `f9-doubao --refresh-identity`。
 
+## 在内网地址上用（不用浏览器小麦克风）
+
+浏览器有个死规矩：`http://100.111.111.x` 这种地址不给麦克风，只有 `127.0.0.1`
+或 `https` 才给。所以在外面用 `100.111.111.88:3080` 打开时，那个麦克风按钮是灰的。
+
+换条路：直接传录音文件给小接口，它回你文字。不走浏览器录音，不要麦克风权限。
+
+```bash
+# 小接口已经跑着了（开机自起），先看它活着：
+curl http://100.111.111.88:8095/health
+
+# 传一段 wav，拿回字（在外面那台机器上录好发过来就行）：
+curl -F "audio=@录音.wav" http://100.111.111.88:8095/transcribe
+# 回来：{"ok":true,"text":"识别出的字","engine":"doubao"}
+```
+
+还是豆包平时用、不行自动换秘塔那套。手机上就用录音机录一段 wav，
+传上来就行，不用装东西。
+
 ## 卸
 
 ```bash
