@@ -1,0 +1,30 @@
+{
+  "name": "dsh-voice-free",
+  "version": "0.1.0",
+  "description": "DSH 语音输入插件：豆包主力、秘塔备选。注册 doubao/metaso 两个 speechToText provider，把录音交给现成的 f9-doubao / f9-metaso CLI；主力识别失败等 3 秒重试 3 次后自动切备选，全部失败时保留 16k wav 并给出中文提示。不下载模型、不做本地推理。",
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "./host.mjs",
+  "exports": {
+    ".": "./host.mjs",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "host.mjs",
+    "cordis.patch.yml",
+    "README.md",
+    "scripts/",
+    "tests/"
+  ],
+  "scripts": {
+    "test": "node tests/cascade.test.mjs"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  }
+}

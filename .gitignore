@@ -1,0 +1,37 @@
+# 依赖
+node_modules/
+.pnpm-store/
+
+# 录音与转写中间产物：一次调试就能产出几十 MB，绝不入库
+*.wav
+*.pcm
+*.mp3
+*.m4a
+*.opus
+*.webm
+
+# 录音状态机（F9 按下/松开 期间的 pid、临时文件、日志）
+.f9-state/
+.f10-state/
+
+# 账号与凭据：doubao / metaso 的 cookie、token、设备 id 一律不入库
+accounts.json
+accounts*.json
+*-account*.json
+*account*.json
+cookies.json
+cookies*.json
+cookie*.json
+*.token.json
+credentials.json
+*.credentials.json
+.env
+.env.*
+!.env.example
+
+# 运行时与杂项
+*.log
+tmp/
+.tmp/
+coverage/
+.DS_Store

@@ -1,0 +1,24 @@
+# dsh-voice-free — 语音输入 bundle 补丁。
+#
+# 四个入口和官方 @deepseek-ai/dsh-experimental-voice-input-bundle 是同一组 id
+# （speech-to-text / api-speech-to-text / ui-voice-input + 一个识别后端）：
+# 装本包就等于把官方那套本地 SenseVoice 换成走 f9 CLI 的 doubao/metaso，
+# 所以两个 bundle 不要同时装——id 会撞。
+#
+# defaultProvider 就是 DSH 语音设置里「识别服务」下拉的初始值，
+# 也是本任务要求的「主力选择」：默认 doubao，界面上可改成 metaso（写入 profile）。
+- insert:
+    - id: speech-to-text
+      name: '@deepseek-ai/dsh-experimental-speech-to-text'
+      config:
+        defaultProvider: doubao
+        language: auto
+    - id: api-speech-to-text
+      name: '@deepseek-ai/dsh-experimental-api-speech-to-text'
+    - id: ui-voice-input
+      name: '@deepseek-ai/dsh-experimental-client-ui-voice-input'
+    - id: voice-free
+      name: ./host.mjs
+      config:
+        # 谁带兜底链：doubao = 豆包主力（失败自动落秘塔）；metaso = 秘塔主力（失败落豆包）
+        primary: doubao
